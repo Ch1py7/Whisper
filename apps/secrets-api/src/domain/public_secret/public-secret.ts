@@ -6,7 +6,7 @@ export class PublicSecret {
 	private _createdAt: string
 	private _secret: Secret
 
-	constructor({ id, createdAt, secret }: SecretDomain) {
+	constructor({ id, createdAt, secret }: PublicSecretDomain) {
 		this._id = new ID(id)
 		this._createdAt = createdAt
 		this._secret = new Secret(secret)
