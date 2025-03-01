@@ -1,11 +1,15 @@
-interface SecretDocument {
-  _id: string
-  created_at: string
-  secret: string
-}
+import type { MUUID } from 'uuid-mongodb'
 
-interface SecretDomain {
-	id: string
-	createdAt: string
-	secret: string
+declare global {
+	interface PublicSecretDocument {
+		_id: MUUID
+		created_at: string
+		secret: string
+	}
+
+	interface PublicSecretDomain {
+		id: string
+		createdAt: string
+		secret: string
+	}
 }
