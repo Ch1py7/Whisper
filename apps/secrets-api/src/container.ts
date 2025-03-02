@@ -2,14 +2,15 @@ import { InjectionMode, asClass, asFunction, asValue, createContainer } from 'aw
 import crypto from 'node:crypto'
 import muid from 'uuid-mongodb'
 import { GetPublicSecrets } from './application/get_public_secrets'
+import { SavePrivateSecret } from './application/save_private_secret'
 import { SavePublicSecret } from './application/save_public_secret'
+import { Cipher } from './domain/services/cipher'
 import { config } from './infrastructure/config'
 import { DbHandler } from './infrastructure/persistance/mongo/db-handler'
-import { PublicSecretRepository } from './infrastructure/persistance/mongo/mongo-public-secret-repository'
-import { PublicSecretParser } from './infrastructure/persistance/mongo/public-secret-parser'
-import { Cipher } from './domain/services/cipher'
-import { PrivateSecretParser } from './infrastructure/persistance/mongo/private-secret-parser'
 import { PrivateSecretRepository } from './infrastructure/persistance/mongo/mongo-private-secret-repository'
+import { PublicSecretRepository } from './infrastructure/persistance/mongo/mongo-public-secret-repository'
+import { PrivateSecretParser } from './infrastructure/persistance/mongo/private-secret-parser'
+import { PublicSecretParser } from './infrastructure/persistance/mongo/public-secret-parser'
 
 const container = createContainer<Dependencies>({
 	injectionMode: InjectionMode.PROXY,
@@ -27,6 +28,7 @@ container.register({
 	savePublicSecret: asClass(SavePublicSecret),
 	getPublicSecrets: asClass(GetPublicSecrets),
 	cipher: asClass(Cipher),
+	savePrivateSecret: asClass(SavePrivateSecret),
 })
 
 export default container
