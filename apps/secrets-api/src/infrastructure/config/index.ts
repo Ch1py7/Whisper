@@ -23,7 +23,12 @@ const test = {
 	},
 }
 
+const general = {
+	privateKey: process.env.PRIVATE_KEY ?? ''
+}
+
 export const config = {
+	general,
 	run,
 	test,
 }
