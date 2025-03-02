@@ -3,6 +3,7 @@ import type { SavePublicSecret } from '@/application/save_public_secret'
 import type { Cipher } from '@/domain/services/cipher'
 import type { config } from '@/infrastructure/config'
 import type { DbHandler } from '@/infrastructure/persistance/mongo/db-handler'
+import type { PrivateSecretRepository } from '@/infrastructure/persistance/mongo/mongo-private-secret-repository'
 import type { PublicSecretRepository } from '@/infrastructure/persistance/mongo/mongo-public-secret-repository'
 import type { PrivateSecretParser } from '@/infrastructure/persistance/mongo/private-secret-parser'
 import type { PublicSecretParser } from '@/infrastructure/persistance/mongo/public-secret-parser'
@@ -18,6 +19,7 @@ declare global {
 		publicParser: PublicSecretParser
 		privateParser: PrivateSecretParser
 		publicSecretRepository: PublicSecretRepository
+		privateSecretRepository: PrivateSecretRepository
 		savePublicSecret: SavePublicSecret
 		getPublicSecrets: GetPublicSecrets
 		cipher: Cipher

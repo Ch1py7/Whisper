@@ -9,6 +9,7 @@ import { PublicSecretRepository } from './infrastructure/persistance/mongo/mongo
 import { PublicSecretParser } from './infrastructure/persistance/mongo/public-secret-parser'
 import { Cipher } from './domain/services/cipher'
 import { PrivateSecretParser } from './infrastructure/persistance/mongo/private-secret-parser'
+import { PrivateSecretRepository } from './infrastructure/persistance/mongo/mongo-private-secret-repository'
 
 const container = createContainer<Dependencies>({
 	injectionMode: InjectionMode.PROXY,
@@ -22,6 +23,7 @@ container.register({
 	publicParser: asClass(PublicSecretParser),
 	privateParser: asClass(PrivateSecretParser),
 	publicSecretRepository: asClass(PublicSecretRepository),
+	privateSecretRepository: asClass(PrivateSecretRepository),
 	savePublicSecret: asClass(SavePublicSecret),
 	getPublicSecrets: asClass(GetPublicSecrets),
 	cipher: asClass(Cipher),
