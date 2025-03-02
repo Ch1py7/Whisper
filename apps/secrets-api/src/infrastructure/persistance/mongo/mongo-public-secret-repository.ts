@@ -18,11 +18,33 @@ export class PublicSecretRepository {
 	}
 
 	async save(secretDomain: PublicSecretDomain) {
-		const db = await this.dbHandler.getInstance()
 		try {
+			const db = await this.dbHandler.getInstance()
 			const secretDocument = this.publicParser.toDocument(secretDomain)
 
 			await db.collection<PublicSecretDocument>(SECRETS).insertOne(secretDocument)
+		} catch (error: unknown) {
+			if (error instanceof MongoError) {
+				throw error
+			}
+			throw error
+		}
+	}
+
+	async get(limit: number, lastDate?: Date) {
+		try {
+			const db = await this.dbHandler.getInstance()
+			const query = lastDate ? { created_at: { $gt: lastDate } } : {}
+			const documents = await db
+				.collection<PublicSecretDocument>(SECRETS)
+				.find(query)
+				.sort({ created_at: -1 })
+				.limit(limit)
+				.toArray()
+
+			const parsedDocuments = documents.map((d) => this.publicParser.toDomain(d))
+
+			return parsedDocuments
 		} catch (error: unknown) {
 			if (error instanceof MongoError) {
 				throw error
