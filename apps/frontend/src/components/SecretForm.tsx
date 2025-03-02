@@ -1,13 +1,22 @@
 import { toasty } from '@/libs/toast'
 import { postRequest } from '@/services/requests'
 import { AxiosError } from 'axios'
-import { Copy, Globe, Lock, RefreshCw, Send, Share2 } from 'lucide-react'
+import { Copy, Globe, Lock, RefreshCw, Send, Share2, Shield } from 'lucide-react'
 import { useState } from 'react'
 
-const uriPublicSecrets = `${import.meta.env.VITE_BACKEND_URL}/public`
+const urlPublicSecrets = `${import.meta.env.VITE_BACKEND_URL}/public`
+const urlPrivateSecrets = `${import.meta.env.VITE_BACKEND_URL}/private`
 
-interface Response {
+interface ResponsePublic {
 	data: PublicSecret[]
+	message: string
+}
+
+interface ResponsePrivate {
+	data: {
+		iv: string
+		secretId: string
+	}
 	message: string
 }
 
@@ -23,13 +32,6 @@ export const SecretForm: React.FC<SecretFormProps> = ({ getSecrets }): React.Rea
 	const [shareMode, setShareMode] = useState<'private' | 'public'>('public')
 	const [charCount, setCharCount] = useState(0)
 	const maxChars = 280
-
-	const generateSecretLink = () => {
-		const randomId = crypto
-			.getRandomValues(new Uint8Array(16))
-			.reduce((acc, byte) => acc + byte.toString(16).padStart(2, '0'), '')
-		return `${window.location.origin}/secret/${randomId}`
-	}
 
 	const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
 		const text = e.target.value
@@ -55,15 +57,18 @@ export const SecretForm: React.FC<SecretFormProps> = ({ getSecrets }): React.Rea
 		if (!secret.trim()) return
 
 		try {
-			const { response, status } = await postRequest<Response>(uriPublicSecrets, { secret })
+			const { response, status } =
+				shareMode === 'public'
+					? await postRequest<ResponsePublic>(urlPublicSecrets, { secret })
+					: await postRequest<ResponsePrivate>(urlPrivateSecrets, { secret, maxAttempts: 3 })
 			if (status === 201) {
 				toasty.success(response.message)
 				getSecrets()
 				resetForm()
 			}
 		} catch (er) {
-			if (er instanceof AxiosError && er.response?.data?.error) {
-				toasty.error(er.response.data.error)
+			if (er instanceof AxiosError && er.response?.data) {
+				toasty.error(er.response.data.message)
 			} else {
 				toasty.error('An unexpected error occurred. Please try again later.')
 			}
@@ -77,10 +82,8 @@ export const SecretForm: React.FC<SecretFormProps> = ({ getSecrets }): React.Rea
 					{!secretLink || shareMode === 'public' ? (
 						<form onSubmit={handleSubmit} className='space-y-6'>
 							<div className='flex justify-center space-x-4 mb-6'>
-								{/* todo: implement backend for this */}
-								{/* <button
+								<button
 									type='button'
-									disabled
 									onClick={() => setShareMode('private')}
 									className={`flex items-center px-4 py-2 rounded-lg transition-all ${
 										shareMode === 'private'
@@ -90,7 +93,7 @@ export const SecretForm: React.FC<SecretFormProps> = ({ getSecrets }): React.Rea
 								>
 									<Shield className='w-5 h-5 mr-2' />
 									Private Link
-								</button> */}
+								</button>
 								<button
 									type='button'
 									onClick={() => setShareMode('public')}

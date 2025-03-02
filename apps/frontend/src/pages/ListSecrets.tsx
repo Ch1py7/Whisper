@@ -8,7 +8,7 @@ interface Response {
 	message: string
 }
 
-const uriPublicSecrets = `${import.meta.env.VITE_BACKEND_URL}/public`
+const urlPublicSecrets = `${import.meta.env.VITE_BACKEND_URL}/public`
 const LIMIT = 10
 
 export const ListSecrets: React.FC = (): React.ReactNode => {
@@ -25,8 +25,8 @@ export const ListSecrets: React.FC = (): React.ReactNode => {
 		setLoading(true)
 		try {
 			const url = lastDate
-				? `${uriPublicSecrets}?limit=${LIMIT}&lastDate=${lastDate}`
-				: `${uriPublicSecrets}?limit=${LIMIT}`
+				? `${urlPublicSecrets}?limit=${LIMIT}&lastDate=${lastDate}`
+				: `${urlPublicSecrets}?limit=${LIMIT}`
 
 			const { response, status } = await getRequest<Response>(url)
 			if (status === 200) {

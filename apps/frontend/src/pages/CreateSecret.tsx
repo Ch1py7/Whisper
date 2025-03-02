@@ -17,7 +17,7 @@ export interface IPublicSecret {
 	difference: string
 }
 
-const uriPublicSecrets = `${import.meta.env.VITE_BACKEND_URL}/public`
+const urlPublicSecrets = `${import.meta.env.VITE_BACKEND_URL}/public`
 
 export const CreateSecret: React.FC = (): React.ReactNode => {
 	const [publicSecrets, setPublicSecrets] = useState<IPublicSecret[]>([])
@@ -26,7 +26,7 @@ export const CreateSecret: React.FC = (): React.ReactNode => {
 	const getSecrets = useCallback(async () => {
 		setLoading(true)
 		try {
-			const { response, status } = await getRequest<Response>(`${uriPublicSecrets}?limit=3`)
+			const { response, status } = await getRequest<Response>(`${urlPublicSecrets}?limit=3`)
 			if (status === 200) {
 				const secrets = response.data.map((secret) => ({
 					id: secret.id,
