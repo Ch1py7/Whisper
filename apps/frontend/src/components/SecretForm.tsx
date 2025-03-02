@@ -57,6 +57,7 @@ export const SecretForm: React.FC<SecretFormProps> = ({ getSecrets }): React.Rea
 			if (status === 201) {
 				toasty.success(response.message)
 				getSecrets()
+				resetForm()
 			}
 		} catch (er) {
 			if (er instanceof AxiosError && er.response?.data?.error) {
