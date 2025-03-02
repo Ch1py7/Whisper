@@ -17,6 +17,7 @@ declare global {
 		_id: MUUID
 		secret_id: string
 		encrypted_secret: string
+		iv: string
 		attempts: number
 		max_attempts: number
 		created_at: Date
@@ -27,6 +28,7 @@ declare global {
 		id: string
 		secretId: string
 		encryptedSecret: string
+		iv: string
 		attempts: number
 		maxAttempts: number
 		createdAt: Date

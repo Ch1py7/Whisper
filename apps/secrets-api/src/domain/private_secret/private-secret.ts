@@ -6,6 +6,7 @@ export class PrivateSecret {
 	private _expiresAt: Date
 	private _secretId: string
 	private _encryptedSecret: string
+	private _iv: string
 	private _attempts: number
 	private _maxAttempts: number
 
@@ -15,6 +16,7 @@ export class PrivateSecret {
 		expiresAt,
 		secretId,
 		encryptedSecret,
+		iv,
 		attempts,
 		maxAttempts,
 	}: PrivateSecretDomain) {
@@ -23,6 +25,7 @@ export class PrivateSecret {
 		this._expiresAt = expiresAt
 		this._secretId = secretId
 		this._encryptedSecret = encryptedSecret
+		this._iv = iv
 		this._attempts = attempts
 		this._maxAttempts = maxAttempts
 	}
@@ -45,6 +48,10 @@ export class PrivateSecret {
 
 	get encryptedSecret() {
 		return this._encryptedSecret
+	}
+
+	get iv() {
+		return this._iv
 	}
 
 	get attempts() {

@@ -13,6 +13,7 @@ export class PrivateSecretParser {
 		expires_at,
 		secret_id,
 		encrypted_secret,
+		iv,
 		attempts,
 		max_attempts,
 	}: PrivateSecretDocument) {
@@ -23,6 +24,7 @@ export class PrivateSecretParser {
 			expiresAt: expires_at,
 			secretId: secret_id,
 			encryptedSecret: encrypted_secret,
+			iv,
 			attempts,
 			maxAttempts: max_attempts,
 		})
@@ -34,6 +36,7 @@ export class PrivateSecretParser {
 		expiresAt,
 		secretId,
 		encryptedSecret,
+		iv,
 		attempts,
 		maxAttempts,
 	}: PrivateSecretDomain) {
@@ -44,7 +47,8 @@ export class PrivateSecretParser {
 			expires_at: expiresAt,
 			secret_id: secretId,
 			encrypted_secret: encryptedSecret,
-			attempts: attempts,
+			iv,
+			attempts,
 			max_attempts: maxAttempts,
 		}
 	}
