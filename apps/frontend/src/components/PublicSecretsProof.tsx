@@ -8,7 +8,7 @@ export const PublicSecretsProof: React.FC<PublicSecretsProofProps> = ({
 	publicSecrets,
 }): React.ReactNode => {
 	return (
-		<div className='bg-white/10 rounded-xl shadow-2xl h-min overflow-hidden p-6 md:col-start-5 md:col-end-7 self-center hover:scale-105 transition-all duration-200'>
+		<div className='bg-white/10 rounded-xl shadow-2xl h-min overflow-hidden p-6 md:col-start-5 md:col-end-7 self-center md:hover:scale-105 transition-all duration-200'>
 			<div className='flex items-center justify-between mb-4'>
 				<h3 className='text-xl font-medium flex items-center whitespace-nowrap'>
 					<Globe className='w-5 h-5 mr-2' />
