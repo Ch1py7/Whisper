@@ -40,7 +40,7 @@ router.get('/', async (req: express.Request, res: express.Response) => {
 	try {
 		const command = new GetPublicSecretsCommand(Number(limit), lastDate?.toString())
 		const getPublicSecrets = container.resolve('getPublicSecrets')
-		const secrets = await getPublicSecrets.execute(command)
+		const { secrets } = await getPublicSecrets.execute(command)
 
 		res.status(200).json({
 			message: 'Secrets fetched successfully',
