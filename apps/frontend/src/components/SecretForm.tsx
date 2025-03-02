@@ -25,7 +25,9 @@ export const SecretForm: React.FC<SecretFormProps> = ({ getSecrets }): React.Rea
 	const maxChars = 280
 
 	const generateSecretLink = () => {
-		const randomId = crypto.randomUUID().substring(2, 15).replace(/-/g, '')
+		const randomId = crypto
+			.getRandomValues(new Uint8Array(16))
+			.reduce((acc, byte) => acc + byte.toString(16).padStart(2, '0'), '')
 		return `${window.location.origin}/secret/${randomId}`
 	}
 
