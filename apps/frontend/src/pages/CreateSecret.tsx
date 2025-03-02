@@ -46,9 +46,11 @@ export const CreateSecret: React.FC = (): React.ReactNode => {
 				<p className='text-xl text-pink-200'>Share secrets anonymously, securely.</p>
 			</div>
 
-			<div className='grid grid-cols-1 md:grid-cols-6 max-w-4xl mx-auto gap-4'>
-				<SecretForm getSecrets={getSecrets} />
-				<PublicSecretsProof publicSecrets={publicSecrets} />
+			<div className='flex justify-center'>
+				<div className='grid grid-cols-1 md:grid-cols-6 max-w-4xl gap-4 w-full'>
+					<SecretForm getSecrets={getSecrets} />
+					<PublicSecretsProof publicSecrets={publicSecrets} />
+				</div>
 			</div>
 		</main>
 	)
