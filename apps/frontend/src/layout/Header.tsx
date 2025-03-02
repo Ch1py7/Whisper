@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom'
 
 export const Header: React.FC = (): React.ReactNode => {
 	return (
-		<header className='bg-black/30 border-b border-white/10'>
-			<div className='container mx-auto px-4 py-4'>
+		<header className='bg-black/30 border-b border-white/10 flex justify-center'>
+			<div className='w-full px-4 md:px-28 py-4'>
 				<div className='flex justify-between items-center'>
 					<a href='/' className='flex items-center'>
 						<Lock className='text-indigo-400 mr-2' size={24} />
