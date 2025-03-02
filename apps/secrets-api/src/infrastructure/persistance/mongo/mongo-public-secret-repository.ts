@@ -34,7 +34,8 @@ export class PublicSecretRepository {
 	async get(limit: number, lastDate?: Date) {
 		try {
 			const db = await this.dbHandler.getInstance()
-			const query = lastDate ? { created_at: { $gt: lastDate } } : {}
+			const query = lastDate instanceof Date ? { created_at: { $lt: lastDate } } : {}
+
 			const documents = await db
 				.collection<PublicSecretDocument>(SECRETS)
 				.find(query)
@@ -42,11 +43,9 @@ export class PublicSecretRepository {
 				.limit(limit)
 				.toArray()
 
-			const parsedDocuments = documents.map((d) => this.publicParser.toDomain(d))
-
-			return parsedDocuments
-		} catch (error: unknown) {
-			if (error instanceof MongoError) {
+			return documents.map((d) => this.publicParser.toDomain(d))
+		} catch (error) {
+			if (error instanceof Error) {
 				throw error
 			}
 			throw error
