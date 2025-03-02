@@ -1,4 +1,4 @@
-import { config } from 'infrastructure/config'
+import { config } from '@/infrastructure/config'
 import { type Db, MongoClient as mongo, MongoError } from 'mongodb'
 
 const { dbName, mongoConnectionUri, mongoTimeout } = config.run.mongo
@@ -15,7 +15,7 @@ const _connect = async () => {
 
 		db = client.db(dbName)
 		return db
-	} catch (error) {
+	} catch (error: unknown) {
 		console.error(`Error connecting to the database: ${error}`)
 		if (error instanceof MongoError) {
 			throw error
