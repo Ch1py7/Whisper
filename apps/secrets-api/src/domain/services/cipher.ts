@@ -1,14 +1,12 @@
-import crypto from 'node:crypto'
-
 export class Cipher {
 	private readonly _ENCRYPT_ALGORITHM = 'aes-256-ctr'
 	private readonly _BASE36_ENCODING = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
-	private readonly _crypto: typeof crypto
+	private readonly _crypto: Dependencies['crypto']
 	private readonly _privateKey: string
 
-	constructor(privateKey: string) {
+	constructor({ config, crypto }: Pick<Dependencies, 'config' | 'crypto'>) {
 		this._crypto = crypto
-		this._privateKey = this._normalizePrivateKey(privateKey)
+		this._privateKey = this._normalizePrivateKey(config.general.privateKey)
 	}
 
 	private _normalizePrivateKey(privateKey: string) {
