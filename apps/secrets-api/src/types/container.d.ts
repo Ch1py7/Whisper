@@ -5,7 +5,7 @@ import type muid from 'uuid-mongodb'
 
 declare global {
 	interface Dependencies {
-		dbHandler: typeof DbHandler
+		dbHandler: ReturnType<typeof DbHandler>
 		muid: typeof muid
 		publicParser: PublicSecretParser
 		publicSecretRepository: PublicSecretRepository

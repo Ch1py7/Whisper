@@ -18,7 +18,7 @@ export class PublicSecretRepository {
 	}
 
 	async save(secretDomain: PublicSecretDomain) {
-		const db = await this.dbHandler().getInstance()
+		const db = await this.dbHandler.getInstance()
 		try {
 			const secretDocument = this.publicParser.toDocument(secretDomain)
 
