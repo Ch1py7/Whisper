@@ -11,7 +11,7 @@ export class SavePublicSecret {
 	}: Pick<Dependencies, 'publicSecretRepository' | 'crypto'>) {
 		this.publicSecretRepository = publicSecretRepository
 		this.crypto = crypto
-	} 
+	}
 
 	async execute({ secret }: SavePublicSecretCommand) {
 		const id = this.crypto.randomUUID()
