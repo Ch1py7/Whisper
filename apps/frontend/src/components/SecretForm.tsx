@@ -1,12 +1,26 @@
-import { Copy, Globe, Lock, RefreshCw, Send, Share2, Shield } from 'lucide-react'
+import { toasty } from '@/libs/toast'
+import { postRequest } from '@/services/requests'
+import { AxiosError } from 'axios'
+import { Copy, Globe, Lock, RefreshCw, Send, Share2 } from 'lucide-react'
 import { useState } from 'react'
 
-export const SecretForm: React.FC = (): React.ReactNode => {
+const uriPublicSecrets = `${import.meta.env.VITE_BACKEND_URL}/public`
+
+interface Response {
+	data: PublicSecret[]
+	message: string
+}
+
+interface SecretFormProps {
+	getSecrets: () => Promise<void>
+}
+
+export const SecretForm: React.FC<SecretFormProps> = ({ getSecrets }): React.ReactNode => {
 	const [secret, setSecret] = useState('')
 	const [secretLink, setSecretLink] = useState('')
 	const [copied, setCopied] = useState(false)
 	const [isLoading, setIsLoading] = useState(false)
-	const [shareMode, setShareMode] = useState<'private' | 'public'>('private')
+	const [shareMode, setShareMode] = useState<'private' | 'public'>('public')
 	const [charCount, setCharCount] = useState(0)
 	const maxChars = 280
 
@@ -34,9 +48,23 @@ export const SecretForm: React.FC = (): React.ReactNode => {
 		setSecretLink('')
 	}
 
-	const handleSubmit = (e: React.FormEvent) => {
+	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault()
 		if (!secret.trim()) return
+
+		try {
+			const { response, status } = await postRequest<Response>(uriPublicSecrets, { secret })
+			if (status === 201) {
+				toasty.success(response.message)
+				getSecrets()
+			}
+		} catch (er) {
+			if (er instanceof AxiosError && er.response?.data?.error) {
+				toasty.error(er.response.data.error)
+			} else {
+				toasty.error('An unexpected error occurred. Please try again later.')
+			}
+		}
 	}
 
 	return (
@@ -46,8 +74,10 @@ export const SecretForm: React.FC = (): React.ReactNode => {
 					{!secretLink || shareMode === 'public' ? (
 						<form onSubmit={handleSubmit} className='space-y-6'>
 							<div className='flex justify-center space-x-4 mb-6'>
-								<button
+								{/* todo: implement backend for this */}
+								{/* <button
 									type='button'
+									disabled
 									onClick={() => setShareMode('private')}
 									className={`flex items-center px-4 py-2 rounded-lg transition-all ${
 										shareMode === 'private'
@@ -57,7 +87,7 @@ export const SecretForm: React.FC = (): React.ReactNode => {
 								>
 									<Shield className='w-5 h-5 mr-2' />
 									Private Link
-								</button>
+								</button> */}
 								<button
 									type='button'
 									onClick={() => setShareMode('public')}

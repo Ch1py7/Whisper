@@ -1,8 +1,41 @@
 import { PublicSecretsProof } from '@/components/PublicSecretsProof'
 import { SecretForm } from '@/components/SecretForm'
+import { getRequest } from '@/services/requests'
+import { getTimeDifference } from '@/utils/common'
 import { Lock } from 'lucide-react'
+import { useCallback, useEffect, useState } from 'react'
+
+interface Response {
+	data: PublicSecret[]
+	message: string
+}
+
+export interface IPublicSecret {
+	id: string
+	secret: string
+	difference: string
+}
+
+const uriPublicSecrets = `${import.meta.env.VITE_BACKEND_URL}/public`
 
 export const CreateSecret: React.FC = (): React.ReactNode => {
+	const [publicSecrets, setPublicSecrets] = useState<IPublicSecret[]>([])
+
+	const getSecrets = useCallback(async () => {
+		const { response, status } = await getRequest<Response>(`${uriPublicSecrets}?limit=3`)
+		if (status === 200) {
+			const secrets = response.data.map((secret) => ({
+				id: secret.id,
+				secret: secret.secret,
+				difference: getTimeDifference(secret.createdAt),
+			}))
+			setPublicSecrets(secrets)
+		}
+	}, [])
+
+	useEffect(() => {
+		getSecrets()
+	}, [getSecrets])
 	return (
 		<main className='mx-auto px-4 py-12 flex flex-col justify-center'>
 			<div className='text-center mb-12'>
@@ -14,8 +47,8 @@ export const CreateSecret: React.FC = (): React.ReactNode => {
 			</div>
 
 			<div className='grid grid-cols-1 md:grid-cols-6 max-w-4xl mx-auto gap-4'>
-				<SecretForm />
-				<PublicSecretsProof />
+				<SecretForm getSecrets={getSecrets} />
+				<PublicSecretsProof publicSecrets={publicSecrets} />
 			</div>
 		</main>
 	)
