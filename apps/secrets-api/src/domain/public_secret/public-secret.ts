@@ -3,7 +3,7 @@ import { Secret } from './value_objects/secret/secret'
 
 export class PublicSecret {
 	private _id: ID
-	private _createdAt: string
+	private _createdAt: Date
 	private _secret: Secret
 
 	constructor({ id, createdAt, secret }: PublicSecretDomain) {
