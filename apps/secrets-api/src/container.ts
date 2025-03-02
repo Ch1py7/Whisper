@@ -5,6 +5,7 @@ import { SavePublicSecret } from './application/save_public_secret'
 import { DbHandler } from './infrastructure/persistance/mongo/db-handler'
 import { PublicSecretRepository } from './infrastructure/persistance/mongo/mongo-public-secret-repository'
 import { PublicSecretParser } from './infrastructure/persistance/mongo/public-secret-parser'
+import { GetPublicSecrets } from './application/get_public_secrets'
 
 const container = createContainer<Dependencies>({
 	injectionMode: InjectionMode.PROXY,
@@ -17,6 +18,7 @@ container.register({
 	publicParser: asClass(PublicSecretParser),
 	publicSecretRepository: asClass(PublicSecretRepository),
 	savePublicSecret: asClass(SavePublicSecret),
+	getPublicSecrets: asClass(GetPublicSecrets),
 })
 
 export default container

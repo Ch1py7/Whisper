@@ -1,3 +1,4 @@
+import type { GetPublicSecrets } from '@/application/get_public_secrets'
 import type { SavePublicSecret } from '@/application/save_public_secret'
 import type { DbHandler } from '@/infrastructure/persistance/mongo/db-handler'
 import type { PublicSecretRepository } from '@/infrastructure/persistance/mongo/mongo-public-secret-repository'
@@ -13,5 +14,6 @@ declare global {
 		publicParser: PublicSecretParser
 		publicSecretRepository: PublicSecretRepository
 		savePublicSecret: SavePublicSecret
+		getPublicSecrets: GetPublicSecrets
 	}
 }
