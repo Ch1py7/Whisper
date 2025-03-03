@@ -4,7 +4,7 @@ import { AxiosError } from 'axios'
 import { Globe, RefreshCw, Send, Shield } from 'lucide-react'
 import { useState } from 'react'
 import { LoadingOverlay } from './LoadingOverlay'
-import { PrivateSecret } from './PrivateSecret'
+import { CreatePrivateSecret } from './CreatePrivateSecret'
 
 const urlPublicSecrets = `${import.meta.env.VITE_BACKEND_URL}/public`
 const urlPrivateSecrets = `${import.meta.env.VITE_BACKEND_URL}/private`
@@ -173,7 +173,11 @@ export const SecretForm: React.FC<SecretFormProps> = ({ getSecrets }): React.Rea
 							</form>
 						</LoadingOverlay>
 					) : (
-						<PrivateSecret decryptKey={decryptKey} resetForm={resetForm} secretLink={secretLink} />
+						<CreatePrivateSecret
+							decryptKey={decryptKey}
+							resetForm={resetForm}
+							secretLink={secretLink}
+						/>
 					)}
 				</div>
 			</div>
