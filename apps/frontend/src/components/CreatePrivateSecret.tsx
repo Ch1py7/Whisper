@@ -8,7 +8,7 @@ interface PrivateSecretProps {
 	resetForm: () => void
 }
 
-export const PrivateSecret: React.FC<PrivateSecretProps> = ({
+export const CreatePrivateSecret: React.FC<PrivateSecretProps> = ({
 	secretLink,
 	decryptKey,
 	resetForm,
