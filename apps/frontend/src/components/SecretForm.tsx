@@ -3,7 +3,7 @@ import { postRequest } from '@/services/requests'
 import { AxiosError } from 'axios'
 import { Globe, RefreshCw, Send, Shield } from 'lucide-react'
 import { useState } from 'react'
-import { LoadingOverlay } from './Loading'
+import { LoadingOverlay } from './LoadingOverlay'
 import { PrivateSecret } from './PrivateSecret'
 
 const urlPublicSecrets = `${import.meta.env.VITE_BACKEND_URL}/public`
