@@ -40,7 +40,7 @@ export class Cipher {
 			])
 			return decrypted.toString()
 		} catch (error) {
-			throw new Error('Error desencriptando el contenido')
+			throw new Error('Error decrypting content')
 		}
 	}
 
