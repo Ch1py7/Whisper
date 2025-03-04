@@ -1,3 +1,4 @@
+import { DeletePrivateSecretCommand } from '@/application/delete_private_secret/command'
 import { GetPrivateSecretCommand } from '@/application/get_private_secret/command'
 import { SavePrivateSecretCommand } from '@/application/save_private_secret/command'
 import { VerifyPrivateSecretExistanceCommand } from '@/application/verify_private_secret_existance/command'
@@ -44,7 +45,14 @@ router.get('/:secretId/:decryptKey?', async (req: express.Request, res: express.
 			const command = new GetPrivateSecretCommand(secretId, decryptKey)
 			const getPrivateSecret = container.resolve('getPrivateSecret')
 			const secret = await getPrivateSecret.execute(command)
-			secret ? res.status(200).json({ secret: secret.decryptedSecret }) : res.sendStatus(404)
+			if (secret) {
+				const command = new DeletePrivateSecretCommand(secretId)
+				const deletePrivateSecret = container.resolve('deletePrivateSecret')
+				await deletePrivateSecret.execute(command)
+				res.status(200).json({ secret: secret.decryptedSecret })
+			} else {
+				res.sendStatus(404)
+			}
 		} else {
 			const command = new VerifyPrivateSecretExistanceCommand(secretId)
 			const verifyPrivateSecretExistance = container.resolve('verifyPrivateSecretExistance')

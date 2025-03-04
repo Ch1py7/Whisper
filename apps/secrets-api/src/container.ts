@@ -1,6 +1,7 @@
 import { InjectionMode, asClass, asFunction, asValue, createContainer } from 'awilix'
 import crypto from 'node:crypto'
 import muid from 'uuid-mongodb'
+import { DeletePrivateSecret } from './application/delete_private_secret'
 import { GetPrivateSecret } from './application/get_private_secret'
 import { GetPublicSecrets } from './application/get_public_secrets'
 import { SavePrivateSecret } from './application/save_private_secret'
@@ -33,6 +34,7 @@ container.register({
 	savePrivateSecret: asClass(SavePrivateSecret),
 	verifyPrivateSecretExistance: asClass(VerifyPrivateSecretExistance),
 	getPrivateSecret: asClass(GetPrivateSecret),
+	deletePrivateSecret: asClass(DeletePrivateSecret),
 })
 
 export default container

@@ -1,3 +1,4 @@
+import type { DeletePrivateSecret } from '@/application/delete_private_secret'
 import type { GetPrivateSecret } from '@/application/get_private_secret'
 import type { GetPublicSecrets } from '@/application/get_public_secrets'
 import type { SavePrivateSecret } from '@/application/save_private_secret'
@@ -29,5 +30,6 @@ declare global {
 		savePrivateSecret: SavePrivateSecret
 		verifyPrivateSecretExistance: VerifyPrivateSecretExistance
 		getPrivateSecret: GetPrivateSecret
+		deletePrivateSecret: DeletePrivateSecret
 	}
 }

@@ -47,4 +47,16 @@ export class PrivateSecretRepository {
 			throw error
 		}
 	}
+
+	async deleteById(secretId: string) {
+		try {
+			const db = await this.dbHandler.getInstance()
+			await db.collection<PrivateSecretDocument>(SECRETS).deleteOne({ secret_id: secretId })
+		} catch (error: unknown) {
+			if (error instanceof MongoError) {
+				throw error
+			}
+			throw error
+		}
+	}
 }
