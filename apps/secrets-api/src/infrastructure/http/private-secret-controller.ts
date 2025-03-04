@@ -4,10 +4,11 @@ import { SavePrivateSecretCommand } from '@/application/save_private_secret/comm
 import { VerifyPrivateSecretExistanceCommand } from '@/application/verify_private_secret_existance/command'
 import container from '@/container'
 import express from 'express'
+import { limiter } from './middleware/limiter'
 
 const router = express.Router()
 
-router.post('/', async (req: express.Request, res: express.Response) => {
+router.post('/', limiter, async (req: express.Request, res: express.Response) => {
 	const { secret }: SavePrivateSecretCommand = req.body
 
 	if (!secret) {

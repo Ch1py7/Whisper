@@ -2,10 +2,11 @@ import { GetPublicSecretsCommand } from '@/application/get_public_secrets/comman
 import { SavePublicSecretCommand } from '@/application/save_public_secret/command'
 import container from '@/container'
 import express from 'express'
+import { limiter } from './middleware/limiter'
 
 const router = express.Router()
 
-router.post('/', async (req: express.Request, res: express.Response) => {
+router.post('/', limiter, async (req: express.Request, res: express.Response) => {
 	const { secret }: SavePublicSecretCommand = req.body
 
 	if (!secret) {
