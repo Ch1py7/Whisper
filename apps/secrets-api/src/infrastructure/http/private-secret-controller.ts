@@ -48,7 +48,7 @@ router.get('/:secretId/:decryptKey?', async (req: express.Request, res: express.
 		} else {
 			const command = new VerifyPrivateSecretExistanceCommand(secretId)
 			const verifyPrivateSecretExistance = container.resolve('verifyPrivateSecretExistance')
-			const exists = await verifyPrivateSecretExistance.execute(command)
+			const { exists } = await verifyPrivateSecretExistance.execute(command)
 			res.sendStatus(exists ? 200 : 404)
 		}
 	} catch (error) {
