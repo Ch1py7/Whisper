@@ -1,9 +1,11 @@
 import { InjectionMode, asClass, asFunction, asValue, createContainer } from 'awilix'
 import crypto from 'node:crypto'
 import muid from 'uuid-mongodb'
+import { GetPrivateSecret } from './application/get_private_secret'
 import { GetPublicSecrets } from './application/get_public_secrets'
 import { SavePrivateSecret } from './application/save_private_secret'
 import { SavePublicSecret } from './application/save_public_secret'
+import { VerifyPrivateSecretExistance } from './application/verify_private_secret_existance'
 import { Cipher } from './domain/services/cipher'
 import { config } from './infrastructure/config'
 import { DbHandler } from './infrastructure/persistance/mongo/db-handler'
@@ -29,6 +31,8 @@ container.register({
 	getPublicSecrets: asClass(GetPublicSecrets),
 	cipher: asClass(Cipher),
 	savePrivateSecret: asClass(SavePrivateSecret),
+	verifyPrivateSecretExistance: asClass(VerifyPrivateSecretExistance),
+	getPrivateSecret: asClass(GetPrivateSecret),
 })
 
 export default container

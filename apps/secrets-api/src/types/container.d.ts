@@ -1,6 +1,8 @@
+import type { GetPrivateSecret } from '@/application/get_private_secret'
 import type { GetPublicSecrets } from '@/application/get_public_secrets'
 import type { SavePrivateSecret } from '@/application/save_private_secret'
 import type { SavePublicSecret } from '@/application/save_public_secret'
+import type { VerifyPrivateSecretExistance } from '@/application/verify_private_secret_existance'
 import type { Cipher } from '@/domain/services/cipher'
 import type { config } from '@/infrastructure/config'
 import type { DbHandler } from '@/infrastructure/persistance/mongo/db-handler'
@@ -25,5 +27,7 @@ declare global {
 		getPublicSecrets: GetPublicSecrets
 		cipher: Cipher
 		savePrivateSecret: SavePrivateSecret
+		verifyPrivateSecretExistance: VerifyPrivateSecretExistance
+		getPrivateSecret: GetPrivateSecret
 	}
 }
