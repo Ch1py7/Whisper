@@ -3,8 +3,8 @@ import { postRequest } from '@/services/requests'
 import { AxiosError } from 'axios'
 import { Globe, RefreshCw, Send, Shield } from 'lucide-react'
 import { useState } from 'react'
-import { LoadingOverlay } from './LoadingOverlay'
 import { CreatePrivateSecret } from './CreatePrivateSecret'
+import { LoadingOverlay } from './LoadingOverlay'
 
 const urlPublicSecrets = `${import.meta.env.VITE_BACKEND_URL}/public`
 const urlPrivateSecrets = `${import.meta.env.VITE_BACKEND_URL}/private`
@@ -73,7 +73,7 @@ export const SecretForm: React.FC<SecretFormProps> = ({ getSecrets }): React.Rea
 			}
 		} catch (er) {
 			if (er instanceof AxiosError && er.response?.data) {
-				toasty.error(er.response.data.message)
+				toasty.error(er.response.data)
 			} else {
 				toasty.error('An unexpected error occurred. Please try again later.')
 			}
