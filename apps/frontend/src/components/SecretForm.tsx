@@ -17,8 +17,6 @@ interface ResponsePrivate {
 	message: string
 }
 
-const maxChars = 280
-
 export const SecretForm: React.FC = (): React.ReactNode => {
 	const [secret, setSecret] = useState('')
 	const [secretLink, setSecretLink] = useState('')
@@ -26,6 +24,8 @@ export const SecretForm: React.FC = (): React.ReactNode => {
 	const [isLoading, setIsLoading] = useState(false)
 	const [shareMode, setShareMode] = useState<'private' | 'public'>('private')
 	const [charCount, setCharCount] = useState(0)
+
+	const maxChars = shareMode === 'private' ? 500 : 280
 
 	const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
 		const text = e.target.value
@@ -81,7 +81,10 @@ export const SecretForm: React.FC = (): React.ReactNode => {
 								<div className='flex justify-center space-x-4 mb-6'>
 									<button
 										type='button'
-										onClick={() => setShareMode('private')}
+										onClick={() => {
+											setShareMode('private')
+											resetForm()
+										}}
 										className={`flex items-center px-4 py-2 rounded-lg transition-all ${
 											shareMode === 'private'
 												? 'bg-pink-500 text-white'
@@ -93,7 +96,10 @@ export const SecretForm: React.FC = (): React.ReactNode => {
 									</button>
 									<button
 										type='button'
-										onClick={() => setShareMode('public')}
+										onClick={() => {
+											setShareMode('public')
+											resetForm()
+										}}
 										className={`flex items-center px-4 py-2 rounded-lg transition-all ${
 											shareMode === 'public'
 												? 'bg-pink-500 text-white'
