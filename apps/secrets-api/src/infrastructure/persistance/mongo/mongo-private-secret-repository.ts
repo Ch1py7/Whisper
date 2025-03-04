@@ -30,4 +30,21 @@ export class PrivateSecretRepository {
 			throw error
 		}
 	}
+
+	async findById(secretId: string) {
+		try {
+			const db = await this.dbHandler.getInstance()
+
+			const secret = await db
+				.collection<PrivateSecretDocument>(SECRETS)
+				.findOne({ secret_id: secretId })
+
+			return secret ? this.privateParser.toDomain(secret) : null
+		} catch (error: unknown) {
+			if (error instanceof MongoError) {
+				throw error
+			}
+			throw error
+		}
+	}
 }
