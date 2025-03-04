@@ -5,7 +5,7 @@
       "@/*": ["./*"]
     },
     "target": "ESNext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "module": "ES2022",
     "resolveJsonModule": true,
     "esModuleInterop": true,
