@@ -38,7 +38,7 @@ export const ListSecrets: React.FC = (): React.ReactNode => {
 				}
 			}
 		} catch {
-			toasty.error('Something went wrong')
+			toasty.error('Something went wrong...')
 		} finally {
 			setLoading(false)
 		}
