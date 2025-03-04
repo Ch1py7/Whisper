@@ -1,4 +1,3 @@
-import { PublicSecretsProof } from '@/components/PublicSecretsProof'
 import { SecretForm } from '@/components/SecretForm'
 import { toasty } from '@/libs/toast'
 import { getRequest } from '@/services/requests'
@@ -20,31 +19,6 @@ export interface IPublicSecret {
 const urlPublicSecrets = `${import.meta.env.VITE_BACKEND_URL}/public`
 
 export const CreateSecret: React.FC = (): React.ReactNode => {
-	const [publicSecrets, setPublicSecrets] = useState<IPublicSecret[]>([])
-	const [loading, setLoading] = useState(false)
-
-	const getSecrets = useCallback(async () => {
-		setLoading(true)
-		try {
-			const { response, status } = await getRequest<Response>(`${urlPublicSecrets}?limit=3`)
-			if (status === 200) {
-				const secrets = response.data.map((secret) => ({
-					id: secret.id,
-					secret: secret.secret,
-					difference: getTimeDifference(secret.createdAt),
-				}))
-				setPublicSecrets(secrets)
-			}
-		} catch {
-			toasty.error('Something went wrong...')
-		} finally {
-			setLoading(false)
-		}
-	}, [])
-
-	useEffect(() => {
-		getSecrets()
-	}, [getSecrets])
 	return (
 		<main className='mx-auto px-4 py-12 flex flex-col justify-center'>
 			<div className='text-center mb-12'>
@@ -56,9 +30,8 @@ export const CreateSecret: React.FC = (): React.ReactNode => {
 			</div>
 
 			<div className='flex justify-center'>
-				<div className='grid grid-cols-1 md:grid-cols-6 max-w-4xl gap-4 w-full'>
-					<SecretForm getSecrets={getSecrets} />
-					<PublicSecretsProof publicSecrets={publicSecrets} loading={loading} />
+				<div className='max-w-2xl gap-4 w-full'>
+					<SecretForm />
 				</div>
 			</div>
 		</main>

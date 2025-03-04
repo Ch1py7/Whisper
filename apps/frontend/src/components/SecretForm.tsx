@@ -9,11 +9,6 @@ import { LoadingOverlay } from './LoadingOverlay'
 const urlPublicSecrets = `${import.meta.env.VITE_BACKEND_URL}/public`
 const urlPrivateSecrets = `${import.meta.env.VITE_BACKEND_URL}/private`
 
-interface ResponsePublic {
-	data: PublicSecret[]
-	message: string
-}
-
 interface ResponsePrivate {
 	data: {
 		iv: string
@@ -22,13 +17,9 @@ interface ResponsePrivate {
 	message: string
 }
 
-interface SecretFormProps {
-	getSecrets: () => Promise<void>
-}
-
 const maxChars = 280
 
-export const SecretForm: React.FC<SecretFormProps> = ({ getSecrets }): React.ReactNode => {
+export const SecretForm: React.FC = (): React.ReactNode => {
 	const [secret, setSecret] = useState('')
 	const [secretLink, setSecretLink] = useState('')
 	const [decryptKey, setDecryptKey] = useState('')
@@ -61,9 +52,7 @@ export const SecretForm: React.FC<SecretFormProps> = ({ getSecrets }): React.Rea
 					? await postRequest<ResponsePrivate>(urlPublicSecrets, { secret })
 					: await postRequest<ResponsePrivate>(urlPrivateSecrets, { secret })
 			if (status === 201) {
-				if (shareMode === 'public') {
-					getSecrets()
-				} else {
+				if (shareMode !== 'public') {
 					setSecretLink(`${window.location}secret/${response.data.secretId}`)
 					setDecryptKey(response.data.iv)
 				}
