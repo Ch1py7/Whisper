@@ -14,8 +14,6 @@ export class PrivateSecretParser {
 		secret_id,
 		encrypted_secret,
 		iv,
-		attempts,
-		max_attempts,
 	}: PrivateSecretDocument) {
 		const id = _id.toString()
 		return new PrivateSecret({
@@ -25,8 +23,6 @@ export class PrivateSecretParser {
 			secretId: secret_id,
 			encryptedSecret: encrypted_secret,
 			iv,
-			attempts,
-			maxAttempts: max_attempts,
 		})
 	}
 
@@ -37,8 +33,6 @@ export class PrivateSecretParser {
 		secretId,
 		encryptedSecret,
 		iv,
-		attempts,
-		maxAttempts,
 	}: PrivateSecretDomain) {
 		const _id = this._uuid.from(id)
 		return {
@@ -48,8 +42,6 @@ export class PrivateSecretParser {
 			secret_id: secretId,
 			encrypted_secret: encryptedSecret,
 			iv,
-			attempts,
-			max_attempts: maxAttempts,
 		}
 	}
 }

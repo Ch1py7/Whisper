@@ -7,15 +7,15 @@ import express from 'express'
 const router = express.Router()
 
 router.post('/', async (req: express.Request, res: express.Response) => {
-	const { secret, maxAttempts }: SavePrivateSecretCommand = req.body
+	const { secret }: SavePrivateSecretCommand = req.body
 
-	if (!secret || !maxAttempts) {
-		res.status(400).json({ error: 'Missing required fields: secret or max attempts' })
+	if (!secret) {
+		res.status(400).json({ error: 'Missing required fields: secret' })
 		return
 	}
 
 	try {
-		const command = new SavePrivateSecretCommand({ secret, maxAttempts })
+		const command = new SavePrivateSecretCommand({ secret })
 		const savePrivateSecret = container.resolve('savePrivateSecret')
 		const data = await savePrivateSecret.execute(command)
 

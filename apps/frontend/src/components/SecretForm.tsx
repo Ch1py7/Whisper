@@ -59,7 +59,7 @@ export const SecretForm: React.FC<SecretFormProps> = ({ getSecrets }): React.Rea
 			const { response, status } =
 				shareMode === 'public'
 					? await postRequest<ResponsePrivate>(urlPublicSecrets, { secret })
-					: await postRequest<ResponsePrivate>(urlPrivateSecrets, { secret, maxAttempts: 3 })
+					: await postRequest<ResponsePrivate>(urlPrivateSecrets, { secret })
 			if (status === 201) {
 				if (shareMode === 'public') {
 					getSecrets()

@@ -18,8 +18,6 @@ declare global {
 		secret_id: string
 		encrypted_secret: string
 		iv: string
-		attempts: number
-		max_attempts: number
 		created_at: Date
 		expires_at: Date
 	}
@@ -29,8 +27,6 @@ declare global {
 		secretId: string
 		encryptedSecret: string
 		iv: string
-		attempts: number
-		maxAttempts: number
 		createdAt: Date
 		expiresAt: Date
 	}

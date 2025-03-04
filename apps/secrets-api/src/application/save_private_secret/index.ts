@@ -17,7 +17,7 @@ export class SavePrivateSecret {
 		this.cipher = cipher
 	}
 
-	async execute({ secret, maxAttempts }: SavePrivateSecretCommand) {
+	async execute({ secret }: SavePrivateSecretCommand) {
 		const id = this.crypto.randomUUID()
 		const { content, iv } = this.cipher.encrypt(secret)
 		const secretId = this.cipher.randomString(16)
@@ -29,8 +29,6 @@ export class SavePrivateSecret {
 			secretId: secretId,
 			encryptedSecret: content,
 			iv,
-			attempts: 0,
-			maxAttempts,
 			createdAt,
 			expiresAt,
 		})
