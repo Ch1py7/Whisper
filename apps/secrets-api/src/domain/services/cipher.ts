@@ -28,7 +28,7 @@ export class Cipher {
 			throw error
 		}
 	}
-	
+
 	public decrypt(encryption: { iv: string; content: string }) {
 		try {
 			const key = Buffer.from(this._privateKey, 'base64')

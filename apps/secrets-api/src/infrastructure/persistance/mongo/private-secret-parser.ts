@@ -26,14 +26,7 @@ export class PrivateSecretParser {
 		})
 	}
 
-	toDocument({
-		id,
-		createdAt,
-		expiresAt,
-		secretId,
-		encryptedSecret,
-		iv,
-	}: PrivateSecretDomain) {
+	toDocument({ id, createdAt, expiresAt, secretId, encryptedSecret, iv }: PrivateSecretDomain) {
 		const _id = this._uuid.from(id)
 		return {
 			_id,

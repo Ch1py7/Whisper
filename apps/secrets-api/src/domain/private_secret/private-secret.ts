@@ -8,14 +8,7 @@ export class PrivateSecret {
 	private _encryptedSecret: string
 	private _iv: string
 
-	constructor({
-		id,
-		createdAt,
-		expiresAt,
-		secretId,
-		encryptedSecret,
-		iv,
-	}: PrivateSecretDomain) {
+	constructor({ id, createdAt, expiresAt, secretId, encryptedSecret, iv }: PrivateSecretDomain) {
 		this._id = new ID(id)
 		this._createdAt = createdAt
 		this._expiresAt = expiresAt
